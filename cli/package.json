@@ -1,0 +1,13 @@
+{
+  "name": "restle-cli",
+  "version": "0.0.0",
+  "description": "Restle CLI",
+  "main": "restle.js",
+  "dependencies": {
+    "commander": "^2.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.2"
+  }
+}

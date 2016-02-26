@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const pkg = require('./package');
+const init = require('./tools/init');
+
+program
+  .version(pkg.version);
+
+program
+  .command('init')
+  .action(() => {
+    init();
+  });
+
+program.parse(process.argv);
