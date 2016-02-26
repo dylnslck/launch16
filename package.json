@@ -1,0 +1,9 @@
+{
+  "name": "launch16",
+  "version": "0.0.0",
+  "description": "LAUNCH Hackathon 2016",
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.2"
+  }
+}
