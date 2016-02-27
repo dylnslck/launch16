@@ -5,6 +5,9 @@ const program = require('commander');
 const pkg = require('./package.json');
 const init = require('./tools/init/init.js');
 const schema = require('./tools/schema/schema.js');
+const start = require('./tools/start/start.js');
+const deploy = require('./tools/start/deploy.js');
+const scale = require('./tools/start/scale.js');
 
 program
   .version(pkg.version);
@@ -21,9 +24,24 @@ program
   .description('add, update, or delete schemas')
   .action(schema);
 
+program
+  .command('start')
+  .description('starts a Restle instance on localhost')
+  .action(start);
+
+program
+  .command('deploy')
+  .description('deploys a Restle instance on Google Cloud')
+  .action(deploy);
+
+program
+  .command('scale [number]')
+  .description('scales the currently deployed application')
+  .action(scale);
+
 program.parse(process.argv);
 
-const validCommands = /(init|schemas?)/;
+const validCommands = /(init|schemas?|start|deploy|scale)/;
 const command = process.argv[2];
 
 if (!command || !validCommands.test(command)) program.help();
