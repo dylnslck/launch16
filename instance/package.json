@@ -1,0 +1,18 @@
+{
+  "name": "instance",
+  "version": "0.0.1",
+  "description": "A Restle instance.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dylan Slack <dylanslack@gmail.com> (http://www.dylanslack.me)",
+  "dependencies": {
+    "firebase": "^2.4.1",
+    "request-promise": "^2.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.2"
+  }
+}
