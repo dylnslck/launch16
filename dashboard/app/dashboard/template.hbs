@@ -1,0 +1,22 @@
+<div id="dashboard" class="container-fluid">
+  <div class="row">
+    <nav class="navbar navbar-light">
+      {{#link-to "index" class="navbar-brand"}}<b>Restle</b>{{/link-to}}
+      <div class="pull-xs-right">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" {{action "logout"}}>Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8 dashboard-schemas">
+      schemas
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-4 col-lg-4 dashboard-logs">
+      logs
+    </div>
+  </div>
+</div>

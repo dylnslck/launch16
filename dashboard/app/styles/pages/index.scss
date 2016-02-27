@@ -1,0 +1,88 @@
+#index {  
+  .hero {
+    height: 600px;
+    background: $restle-light-blue;
+    position: relative;
+
+    .hero-img {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+
+  .terminal {
+    height: 350px;
+    background: #333;
+    position: absolute;
+    bottom: 0;
+
+    .terminal-viewport {
+      padding: 10px;
+    }
+
+    .terminal-input {
+      width: 100%;
+      font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+
+      &:before {
+        display: inline-block;
+        line-height: 24px;
+        color: white;
+        content: '$';
+        margin-right: 8px;
+      }
+
+      input[type="text"] {
+        position: absolute;
+        z-index: 1;
+        width: 92%;
+        background: transparent;
+        border: none;
+        color: white;
+        line-height: 24px;
+        padding: 0;
+        resize: none;
+
+        &:focus,
+        &:active {
+          border: none;
+          outline: none;
+          text-shadow: none;
+        }
+      }
+    }
+
+    .terminal-header {
+      background: #E2E0E2;
+      height: 22px;
+      margin-top: -20px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+
+      .circle {
+        height: 12px;
+        width: 12px;
+        display: inline-block;
+        border-radius: 6px;
+        margin-left: 8px;
+      }
+
+      .circle-red {
+        background: $restle-red;
+        border: 1px solid darken($restle-red, 8%);
+      }
+
+      .circle-yellow {
+        background: #ECCD2D;
+        border: 1px solid darken(#ECCD2D, 8%);
+      }
+
+      .circle-green {
+        background: $restle-green;
+        border: 1px solid darken($restle-green, 8%);
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<div id="index" class="container-fluid">
+  <div class="row hero">
+    <div class="container">
+      <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="#"><b>Restle</b></a>
+        <ul class="nav navbar-nav hidden-xs-down">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+        <div class="pull-xs-right">
+          <ul class="nav navbar-nav">
+            {{#if session.isAuthenticated}}
+            <li class="nav-item">
+              <a class="nav-link" href="#" {{action "logout"}}>Logout</a>
+            </li>
+            <li class="nav-item">
+              {{#link-to "dashboard" tagName="button" type="button" name="button" class="btn btn-red"}}
+                Dashboard
+              {{/link-to}}
+            </li>
+            {{else}}
+            <li class="nav-item">
+              <button type="button" name="button" class="btn btn-red" {{action "login"}}>
+                {{fa-icon "github"}}&nbsp; Login
+              </button>
+            </li>
+            {{/if}}
+          </ul>
+        </div>
+      </nav>
+      <h1 class="text-xs-center m-y-3">Build, test, and launch an API in one minute.</h1>
+    </div>
+    <div class="terminal col-xs-12 col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+      <div class="row terminal-header">
+        <div class="circle circle-red"></div>
+        <div class="circle circle-yellow"></div>
+        <div class="circle circle-green"></div>
+      </div>
+      <div class="row">
+        {{terminal-viewport}}
+      </div>
+    </div>
+    <img class="hero-img" src="images/hero.svg" alt="" />
+  </div>
+</div>

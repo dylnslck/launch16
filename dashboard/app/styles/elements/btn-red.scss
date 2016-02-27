@@ -1,0 +1,11 @@
+.btn-red {
+  border-radius: 18px;
+  background: $restle-red;
+  border-bottom: 2px solid darken($restle-red, 30%);
+  border: none;
+  color: white;
+
+  &:hover {
+    background: darken($restle-red, 5%);
+  }
+}

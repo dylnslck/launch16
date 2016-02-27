@@ -1,0 +1,22 @@
+$restle-red: #FB6562;
+$restle-green: #44D860;
+$restle-light-blue: #EAEEF3;
+$font-main: #444A4D;
+$font-muted: #899094;
+
+@import "pages/index";
+@import "pages/dashboard";
+@import "elements/btn-red.scss";
+
+body {
+  font-family: "Source Sans Pro";
+  color: $font-main !important;
+
+  .text-muted {
+    color: $font-muted !important;
+  }
+}
+
+h1, h2, h3 {
+  font-weight: 100;
+}

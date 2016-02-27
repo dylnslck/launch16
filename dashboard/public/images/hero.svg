@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1440px" height="457px" viewBox="0 0 1440 457" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-3" sketch:type="MSArtboardGroup">
+            <g id="rocket" sketch:type="MSLayerGroup" transform="translate(1153.000000, 118.000000)">
+                <g id="flames" transform="translate(12.000000, 147.000000)" fill="#FFFFFF" sketch:type="MSShapeGroup">
+                    <rect id="Rectangle-42" x="0" y="0" width="14" height="42"></rect>
+                    <rect id="Rectangle-42-Copy" x="21" y="0" width="24" height="42"></rect>
+                    <rect id="Rectangle-42-Copy-2" x="52" y="0" width="14" height="42"></rect>
+                </g>
+                <g id="engine-exits" transform="translate(11.000000, 142.000000)" sketch:type="MSShapeGroup">
+                    <rect id="Rectangle-35" fill="#CCCCCC" x="0" y="0" width="16" height="5"></rect>
+                    <rect id="Rectangle-35-Copy" fill="#CCCCCC" x="52" y="0" width="16" height="5"></rect>
+                    <rect id="Rectangle-35-Copy-2" fill="#D8D8D8" x="21" y="0" width="13" height="5"></rect>
+                    <rect id="Rectangle-35-Copy-3" fill="#CDCDCD" x="34" y="0" width="13" height="5"></rect>
+                </g>
+                <g id="left-engine" transform="translate(11.000000, 34.000000)" sketch:type="MSShapeGroup">
+                    <path d="M7,9 C7,6.26163483 10.5,-1.03916875e-13 14,-1.0658141e-13 L14,88 L7,88 L7,9 Z" id="left-engine-copy-2" fill="#D8D8D8" transform="translate(10.500000, 44.000000) scale(-1, 1) translate(-10.500000, -44.000000) "></path>
+                    <path d="M0,9 C0,6.26163483 3.5,-1.03916875e-13 7,-1.0658141e-13 L7,88 L0,88 L0,9 Z" id="left-engine-copy" fill="#DFDFDF"></path>
+                </g>
+                <g id="left-engine-copy-3" transform="translate(65.000000, 34.000000)" sketch:type="MSShapeGroup">
+                    <path d="M7,9 C7,6.26163483 10.5,-1.03916875e-13 14,-1.0658141e-13 L14,88 L7,88 L7,9 Z" id="left-engine-copy-2" fill="#D8D8D8" transform="translate(10.500000, 44.000000) scale(-1, 1) translate(-10.500000, -44.000000) "></path>
+                    <path d="M0,9 C0,6.26163483 3.5,-1.03916875e-13 7,-1.0658141e-13 L7,88 L0,88 L0,9 Z" id="left-engine-copy" fill="#DFDFDF"></path>
+                </g>
+                <g id="main-engine" transform="translate(25.000000, 0.000000)" sketch:type="MSShapeGroup">
+                    <g id="main-engine-left" fill="#C4C4C4">
+                        <path d="M0,35 L20,35 C20,35 19.9999995,6.7897796 20,0 C0,13.1592188 0,35 0,35 Z" id="Path-7"></path>
+                        <rect id="Rectangle-31" x="0" y="35" width="20" height="68"></rect>
+                    </g>
+                    <g id="main-engine-right" transform="translate(30.000000, 51.500000) scale(-1, 1) translate(-30.000000, -51.500000) translate(20.000000, 0.000000)" fill="#B8B8B8">
+                        <path d="M0,35 L20,35 C20,35 19.9999995,6.7897796 20,0 C0,13.1592188 0,35 0,35 Z" id="Path-7"></path>
+                        <rect id="Rectangle-31" x="0" y="35" width="20" height="68"></rect>
+                    </g>
+                </g>
+                <g id="shuttle" transform="translate(0.000000, 33.000000)" sketch:type="MSShapeGroup">
+                    <path d="M0,109 L45,109 C45,109 45.0000007,7.92822444 45,0 C32.125121,-1.25118611 30.7504791,43.2655016 31,40 C28.3546002,39.7800479 27.8669128,64.8991132 25,67 C23.0974879,69.3579769 6.2818657,86.5806478 3,92 C0.514750307,96.446177 0,109 0,109 Z" id="Path-5" fill="#D8D8D8"></path>
+                    <path d="M45,109 L90,109 C90,109 90.0000007,7.92822444 90,0 C77.125121,-1.25118611 75.7504791,43.2655016 76,40 C73.3546002,39.7800479 72.8669128,64.8991132 70,67 C68.0974879,69.3579769 51.2818657,86.5806478 48,92 C45.5147503,96.446177 45,109 45,109 Z" id="Path-5-Copy" fill="#CDCDCD" transform="translate(67.500000, 54.500000) scale(-1, 1) translate(-67.500000, -54.500000) "></path>
+                </g>
+            </g>
+            <g id="flames" sketch:type="MSLayerGroup" transform="translate(-10.000000, 280.000000)">
+                <circle id="Oval-5" fill="#FB6562" sketch:type="MSShapeGroup" cx="1209" cy="45" r="45"></circle>
+                <circle id="Oval-5-Copy" fill="#FB6562" sketch:type="MSShapeGroup" cx="1179" cy="82" r="45"></circle>
+                <circle id="Oval-5-Copy-3" fill="#FB6562" sketch:type="MSShapeGroup" cx="1136" cy="82" r="45"></circle>
+                <circle id="Oval-5-Copy-4" fill="#FB6562" sketch:type="MSShapeGroup" cx="1060" cy="126" r="45"></circle>
+                <circle id="Oval-5-Copy-12" fill="#FB6562" sketch:type="MSShapeGroup" cx="1104" cy="114" r="45"></circle>
+                <circle id="Oval-5-Copy-5" fill="#FB6562" sketch:type="MSShapeGroup" cx="1004" cy="108" r="45"></circle>
+                <circle id="Oval-5-Copy-6" fill="#FB6562" sketch:type="MSShapeGroup" cx="960" cy="133" r="45"></circle>
+                <circle id="Oval-5-Copy-11" fill="#FB6562" sketch:type="MSShapeGroup" cx="910" cy="137" r="45"></circle>
+                <circle id="Oval-5-Copy-2" fill="#FB6562" sketch:type="MSShapeGroup" cx="1265.5" cy="81.5" r="44.5"></circle>
+                <circle id="Oval-5-Copy-7" fill="#FB6562" sketch:type="MSShapeGroup" cx="1245.5" cy="101.5" r="44.5"></circle>
+                <circle id="Oval-5-Copy-8" fill="#FB6562" sketch:type="MSShapeGroup" cx="1313.5" cy="80.5" r="44.5"></circle>
+                <circle id="Oval-5-Copy-9" fill="#FB6562" sketch:type="MSShapeGroup" cx="1373.5" cy="101.5" r="44.5"></circle>
+                <circle id="Oval-5-Copy-10" fill="#FB6562" sketch:type="MSShapeGroup" cx="1426.5" cy="119.5" r="44.5"></circle>
+                <path d="M0,151 C0,151 396.485088,123.77132 725.5,114.02406 C1054.51491,104.276801 1451,101.013275 1451,101.013275 L1451,177 L0,177 L0,151 Z" id="Rectangle-41" fill="#FB6562" sketch:type="MSShapeGroup"></path>
+                <g id="Group" transform="translate(1094.000000, 70.000000)" fill="#FF8482" sketch:type="MSShapeGroup">
+                    <path d="M95,17.2747533 C90.422723,8.7762069 81.4424733,3 71.1131181,3 C56.1389564,3 44,15.1389564 44,30.1131181 C44,33.2471369 44.5317402,36.2569612 45.5099234,39.0572936 C45.7610954,22.8441012 58.9824046,9.77827952 75.2554,9.77827952 C82.8322301,9.77827952 89.7474838,12.6108245 95,17.2747533 Z" id="Oval-19"></path>
+                    <path d="M217.924018,23.4771345 C214.160754,16.489951 206.777532,11.740972 198.285127,11.740972 C185.973937,11.740972 175.993746,21.7211631 175.993746,34.0323526 C175.993746,36.6090245 176.430923,39.0835882 177.235148,41.3859156 C177.441652,28.0560418 188.311713,17.3138172 201.690754,17.3138172 C207.920137,17.3138172 213.605598,19.6426286 217.924018,23.4771345 Z" id="Oval-19-Copy-3" transform="translate(196.958882, 26.563444) rotate(-310.000000) translate(-196.958882, -26.563444) "></path>
+                    <path d="M252.059614,72.4009387 C249.467528,67.5882597 244.382063,64.3172263 238.532607,64.3172263 C230.052824,64.3172263 223.178601,71.191449 223.178601,79.6712324 C223.178601,81.4460096 223.479723,83.1504562 224.033662,84.7362686 C224.1759,75.5548291 231.663053,68.1557278 240.878358,68.1557278 C245.169075,68.1557278 249.085144,69.7597821 252.059614,72.4009387 Z" id="Oval-19-Copy-4" transform="translate(237.619108, 74.526747) rotate(-310.000000) translate(-237.619108, -74.526747) "></path>
+                    <path d="M31,63.6768108 C28.2177336,58.5110277 22.7591504,55 16.4805228,55 C7.37858137,55 0,62.3785814 0,71.4805228 C0,73.3855146 0.323214659,75.2150156 0.917796588,76.9171785 C1.07046976,67.0621007 9.10695183,59.1201307 18.9983804,59.1201307 C23.6039045,59.1201307 27.8072941,60.8418737 31,63.6768108 Z" id="Oval-19-Copy-2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

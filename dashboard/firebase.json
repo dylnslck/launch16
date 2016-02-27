@@ -1,0 +1,9 @@
+{
+  "firebase": "restle-launch2016",
+  "public": "dist",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
