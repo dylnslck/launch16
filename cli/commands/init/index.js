@@ -1,14 +1,18 @@
-const promisify = fn => function () { // eslint-disable-line func-names
-  return new Promise(resolve => {
-    const args = Array.prototype.slice.call(arguments); // eslint-disable-line prefer-rest-params
-    args.push(resolve);
-    fn.apply(this, args);
-  });
-};
-
-const mkdirp = promisify(require('mkdirp'));
-const ncp = promisify(require('ncp'));
 const path = require('path');
+
+const mkdirp = (fn => dir => new Promise((resolve, reject) => {
+  fn(dir, err => {
+    if (err) return reject(err);
+    return resolve();
+  });
+}))(require('mkdirp'));
+
+const ncp = (fn => (source, destination) => new Promise((resolve, reject) => {
+  fn(source, destination, err => {
+    if (err) return reject(err);
+    return Promise.resolve();
+  });
+}))(require('ncp'));
 
 module.exports = dir => {
   mkdirp(path.resolve(dir)).then(err => {
@@ -18,6 +22,6 @@ module.exports = dir => {
     ncp(path.resolve(__dirname, 'templates/index.js'), path.resolve(dir, 'index.js')),
     ncp(path.resolve(__dirname, 'templates/package.json'), path.resolve(dir, 'package.json')),
   ])).catch(err => {
-    throw err;
+    console.error(err);
   });
 };

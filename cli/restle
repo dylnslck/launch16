@@ -8,6 +8,7 @@ const schema = require('./commands/schema');
 const start = require('./commands/start');
 const deploy = require('./commands/deploy');
 const scale = require('./commands/scale');
+const test = require('./commands/test');
 
 program
   .version(pkg.version);
@@ -38,6 +39,12 @@ program
   .command('scale <number>')
   .description('scales the currently deployed Restle instance')
   .action(scale);
+
+program
+  .command('test <method> <endpoint>')
+  .option('-s, --stress <rps>')
+  .description('tests api endpoints of the currently reployed Reslte app')
+  .action(test);
 
 program.parse(process.argv);
 

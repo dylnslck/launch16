@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const AWS = require('aws-sdk');
-
 const port = process.env.PORT || 3000;
 const app = express();
 
