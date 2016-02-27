@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "ncp": "^2.0.0",
+    "restle": "^0.6.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

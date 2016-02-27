@@ -1,7 +1,6 @@
 'use strict';
 
-const error = require('./error');
-const typeValidator = require('./Constants').typeValidator;
+const error = require('../error.js');
 
 module.exports = (schemas, fields) => {
   const fieldsError = () => error('invalid argument `fields`', fields);
@@ -35,6 +34,8 @@ module.exports = (schemas, fields) => {
     attributes: {},
     relationships: {},
   };
+
+  const typeValidator = /^[a-z0-9]+([-_]*[a-z0-9]+)*$/i;
 
   // validate and parse attributes
   attributes.forEach(attribute => {

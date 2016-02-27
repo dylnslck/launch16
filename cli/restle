@@ -2,15 +2,15 @@
 
 const program = require('commander');
 
-const pkg = require('./package');
-const init = require('./tools/init');
-const schema = require('./tools/schema');
+const pkg = require('./package.json');
+const init = require('./tools/init/init.js');
+const schema = require('./tools/schema/schema.js');
 
 program
   .version(pkg.version);
 
 program
-  .command('init')
+  .command('init [dir]')
   .action(init);
 
 program

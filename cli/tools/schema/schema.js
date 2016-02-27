@@ -3,9 +3,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const error = require('./error');
-const typeValidator = require('./Constants').typeValidator;
-const parseFields = require('./parseSchemaFields');
+const error = require('../error.js');
+const parseFields = require('./parseSchemaFields.js');
 
 const schemasDir = path.resolve('./schemas.json');
 
@@ -14,7 +13,7 @@ module.exports = (action, type, fields) => {
   if (!/(add|remove)/.test(action)) error(`invalid argument \`action\` ${action}`);
 
   // validate <type>
-  if (!typeValidator.test(type)) error(`invalid argument \`type\` ${type}`);
+  if (!/^[a-z0-9]+([-_]*[a-z0-9]+)*$/i.test(type)) error(`invalid argument \`type\` ${type}`);
 
   // check that `schemas.json` exists and make it if it doesn't
   let schemas;
