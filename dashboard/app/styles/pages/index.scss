@@ -1,6 +1,14 @@
-#index {  
+#index {
+  .navbar {
+    .navbar-pic {
+      height: 36px;
+      width: 36px;
+      border-radius: 18px;
+    }
+  }
+
   .hero {
-    height: 600px;
+    height: 100vh;
     background: $restle-light-blue;
     position: relative;
 

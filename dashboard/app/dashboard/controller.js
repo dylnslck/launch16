@@ -7,5 +7,21 @@ export default Ember.Controller.extend({
         this.transitionToRoute('index');
       });
     },
+
+    createApp() {
+      const appName = this.get('appName');
+      const user = this.get('session.currentUser');
+
+      this.get('store').createRecord('app', { name: appName, owner: user }).save().then(app => {
+        user.get('apps').addObject(app);
+        user.set('currentApp', app);
+
+        return user.save();
+      }).then(savedUser => {
+        console.log('savedUser:', savedUser);
+      }).catch(err => {
+        console.log('err:', err);
+      });
+    },
   },
 });

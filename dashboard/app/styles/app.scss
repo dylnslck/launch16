@@ -3,10 +3,19 @@ $restle-green: #44D860;
 $restle-light-blue: #EAEEF3;
 $font-main: #444A4D;
 $font-muted: #899094;
+$border: #DBDFE3;
+$bg: #F1F4F7;
 
 @import "pages/index";
 @import "pages/dashboard";
 @import "elements/btn-red.scss";
+@import "elements/btn-rounded-red.scss";
+@import "elements/btn-rounded-green.scss";
+@import "elements/btn-green.scss";
+
+html, body {
+  height: 100%;
+}
 
 body {
   font-family: "Source Sans Pro";

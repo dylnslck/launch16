@@ -21,13 +21,16 @@
               <a class="nav-link" href="#" {{action "logout"}}>Logout</a>
             </li>
             <li class="nav-item">
-              {{#link-to "dashboard" tagName="button" type="button" name="button" class="btn btn-red"}}
+              <img src="{{session.currentUser.profilePic}}" class="navbar-pic">
+            </li>
+            <li class="nav-item">
+              {{#link-to "dashboard" tagName="button" type="button" name="button" class="btn btn-rounded-red"}}
                 Dashboard
               {{/link-to}}
             </li>
             {{else}}
             <li class="nav-item">
-              <button type="button" name="button" class="btn btn-red" {{action "login"}}>
+              <button type="button" name="button" class="btn btn-rounded-red" {{action "login"}}>
                 {{fa-icon "github"}}&nbsp; Login
               </button>
             </li>
@@ -48,5 +51,20 @@
       </div>
     </div>
     <img class="hero-img" src="images/hero.svg" alt="" />
+  </div>
+  <div class="row features">
+    <div class="p-y-3">
+      <h1 class="text-xs-center">Features</h1>
+    </div>
+  </div>
+  <div class="row pricing">
+    <div class="p-y-3">
+      <h1 class="text-xs-center">Pricing</h1>
+    </div>
+  </div>
+  <div class="row About">
+    <div class="p-y-3">
+      <h1 class="text-xs-center">About</h1>
+    </div>
   </div>
 </div>

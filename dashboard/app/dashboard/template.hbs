@@ -2,6 +2,25 @@
   <div class="row">
     <nav class="navbar navbar-light">
       {{#link-to "index" class="navbar-brand"}}<b>Restle</b>{{/link-to}}
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <img src="{{session.currentUser.profilePic}}" class="profile-pic pull-xs-left">
+        </li>
+        <li class="nav-item">
+          {{#if session.currentUser.apps.length}}
+          <div class="btn-group navbar-app">
+            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{session.currentUser.currentApp.name}}
+            </button>
+            <div class="dropdown-menu">
+              {{#each session.currentUser.apps as |app|}}
+              <a class="dropdown-item" href="#">{{app.name}}</a>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+        </li>
+      </ul>
       <div class="pull-xs-right">
         <ul class="nav navbar-nav">
           <li class="nav-item">
@@ -11,12 +30,23 @@
       </div>
     </nav>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8 dashboard-schemas">
-      schemas
-    </div>
-    <div class="col-xs-12 col-sm-3 col-md-4 col-lg-4 dashboard-logs">
-      logs
+  {{#if session.currentUser.apps.length}}
+  <div class="dashboard-outlet row">
+    {{outlet}}
+  </div>
+  {{else}}
+  <div class="dashboard-new row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+      <h1 class="text-xs-center m-y-3">Create your first API</h1>
+      <form {{action "createApp" on="submit"}}>
+        <div class="form-group">
+          {{input type="text" value=appName placeholder="Awesome API 2000" class="form-control"}}
+        </div>
+        <button type="submit" name="button" class="btn btn-red btn-block">
+          Create some awesomness
+        </button>
+      </form>
     </div>
   </div>
+  {{/if}}
 </div>

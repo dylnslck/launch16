@@ -1,3 +1,44 @@
 #dashboard {
+  height: 100vh;
 
+  .navbar {
+    border-bottom: 1px solid $border;
+    border-radius: 0;
+
+    .navbar-app {
+      .btn {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .profile-pic {
+      height: 36px;
+      width: 36px;
+      border-radius: 18px;
+    }
+  }
+
+  .dashboard-outlet {
+    height: calc(100% - 55px);
+
+    .schemas {
+      height: 100%;
+      border-right: 1px solid $border;
+
+      .schemas-controls {
+        background: $bg;
+        border-bottom: 1px solid $border;
+      }
+    }
+
+    .logs {
+      height: 100%;
+    }
+  }
+
+  .dashboard-new {
+    height: calc(100% - 55px);
+    background: $bg;
+  }
 }

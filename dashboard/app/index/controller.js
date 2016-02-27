@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
     login() {
       this.get('session').open('firebase', { provider: 'github' }).then(data => {
         console.log(data.currentUser);
+        console.log(this.get('session.currentUser'));
       });
     },
     logout() {

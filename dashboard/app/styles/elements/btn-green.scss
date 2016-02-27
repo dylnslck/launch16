@@ -1,0 +1,9 @@
+.btn-green {
+  background: $restle-green;
+  border: none;
+  color: white;
+
+  &:hover {
+    background: darken($restle-green, 5%);
+  }
+}

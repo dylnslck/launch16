@@ -1,0 +1,10 @@
+.btn-rounded-green {
+  border-radius: 18px;
+  background: $restle-green;
+  border: none;
+  color: white;
+
+  &:hover {
+    background: darken($restle-green, 5%);
+  }
+}
