@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const error = require('../error');
+const error = require('./error');
 const parse = require('./parse');
 
 module.exports = (action, type, fields) => {

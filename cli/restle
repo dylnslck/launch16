@@ -14,29 +14,29 @@ program
 
 program
   .command('init [dir]')
+  .description('scaffolds a Restle application')
   .action(init);
 
 program
   .command('schema <action> <type> [fields...]')
   .alias('schemas')
-  .option('-a, --attributes', 'schema attributes to add, update, or remove')
-  .option('-r, --relationships', 'schema relationships to add, update, or remove')
-  .description('add, update, or delete schemas')
+  .description('manage Restle schemas')
   .action(schema);
 
 program
   .command('start')
+  .option('-p, --port <port>', 'the port to run the instance on')
   .description('starts a Restle instance on localhost')
   .action(start);
 
 program
   .command('deploy')
-  .description('deploys a Restle instance on Google Cloud')
+  .description('deploys a Restle instance')
   .action(deploy);
 
 program
-  .command('scale [number]')
-  .description('scales the currently deployed application')
+  .command('scale <number>')
+  .description('scales the currently deployed Restle instance')
   .action(scale);
 
 program.parse(process.argv);

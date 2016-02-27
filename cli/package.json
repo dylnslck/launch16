@@ -2,7 +2,7 @@
   "name": "restle-cli",
   "version": "0.0.0",
   "description": "Restle CLI",
-  "main": "restle.js",
+  "bin": "./restle",
   "dependencies": {
     "commander": "^2.9.0",
     "mkdirp": "^0.5.1",
