@@ -9,6 +9,7 @@
   "author": "Dylan Slack <dylanslack@gmail.com> (http://www.dylanslack.me)",
   "dependencies": {
     "firebase": "^2.4.1",
+    "fs-extra": "^0.26.5",
     "request-promise": "^2.0.1"
   },
   "devDependencies": {
