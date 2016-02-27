@@ -3,11 +3,11 @@
 const program = require('commander');
 
 const pkg = require('./package.json');
-const init = require('./tools/init/init.js');
-const schema = require('./tools/schema/schema.js');
-const start = require('./tools/start/start.js');
-const deploy = require('./tools/start/deploy.js');
-const scale = require('./tools/start/scale.js');
+const init = require('./commands/init');
+const schema = require('./commands/schema');
+const start = require('./commands/start');
+const deploy = require('./commands/deploy');
+const scale = require('./commands/scale');
 
 program
   .version(pkg.version);

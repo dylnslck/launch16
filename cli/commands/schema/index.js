@@ -3,10 +3,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const error = require('../error.js');
-const parseFields = require('./parseSchemaFields.js');
-
-const schemasDir = path.resolve('./schemas.json');
+const error = require('../error');
+const parse = require('./parse');
 
 module.exports = (action, type, fields) => {
   // validate <action>
@@ -16,6 +14,7 @@ module.exports = (action, type, fields) => {
   if (!/^[a-z0-9]+([-_]*[a-z0-9]+)*$/i.test(type)) error(`invalid argument \`type\` ${type}`);
 
   // check that `schemas.json` exists and make it if it doesn't
+  const schemasDir = path.resolve('schemas.json');
   let schemas;
   try {
     schemas = require(schemasDir);
@@ -23,13 +22,14 @@ module.exports = (action, type, fields) => {
     schemas = {};
   }
 
-  // make sure that `schemas` has the one being currently modified
+  // make sure that `schemas` has `type` being currently modified
   if (!schemas[type]) Object.assign(schemas, { [type]: { attributes: {}, relationships: {} } });
-  const s = schemas[type];
 
+  // run the command
+  const s = schemas[type];
   switch (action) {
     case 'add': // eslint-disable-line no-case-declarations
-      const schema = parseFields(schemas, fields);
+      const schema = parse(schemas, fields);
       s.attributes = Object.assign(
         s.attributes ? s.attributes : {},
         schema.attributes
@@ -40,9 +40,13 @@ module.exports = (action, type, fields) => {
       );
       break;
     case 'remove':
-      if (!fields.length) delete schemas[type];
+      // if passed no fields delete the entire schema
+      if (fields.length === 0) delete schemas[type];
+      // if passed `attributes` delete all attributes
       if (fields.indexOf('attributes') !== -1) s.attributes = {};
+      // if passed `relationships` delete all relationships
       if (fields.indexOf('relationships') !== -1) s.relationships = {};
+      // delete each field that was passed
       fields.forEach(field => {
         delete s.attributes[field];
         delete s.relationships[field];
