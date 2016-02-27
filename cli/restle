@@ -1,16 +1,23 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+
 const pkg = require('./package');
 const init = require('./tools/init');
+const schema = require('./tools/schema');
 
 program
   .version(pkg.version);
 
 program
   .command('init')
-  .action(() => {
-    init();
-  });
+  .action(init);
+
+program
+  .command('schema <action> <type> [...args]')
+  .description('create, update, or delete schemas')
+  .action(schema);
 
 program.parse(process.argv);
+
+if (process.argv.slice(1).length) program.help();
