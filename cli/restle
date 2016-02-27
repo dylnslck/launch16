@@ -2,22 +2,46 @@
 
 const program = require('commander');
 
-const pkg = require('./package');
-const init = require('./tools/init');
-const schema = require('./tools/schema');
+const pkg = require('./package.json');
+const init = require('./tools/init/init.js');
+const schema = require('./tools/schema/schema.js');
+const start = require('./tools/start/start.js');
+const deploy = require('./tools/start/deploy.js');
+const scale = require('./tools/start/scale.js');
 
 program
   .version(pkg.version);
 
 program
-  .command('init')
+  .command('init [dir]')
   .action(init);
 
 program
-  .command('schema <action> <type> [...args]')
-  .description('create, update, or delete schemas')
+  .command('schema <action> <type> [fields...]')
+  .alias('schemas')
+  .option('-a, --attributes', 'schema attributes to add, update, or remove')
+  .option('-r, --relationships', 'schema relationships to add, update, or remove')
+  .description('add, update, or delete schemas')
   .action(schema);
+
+program
+  .command('start')
+  .description('starts a Restle instance on localhost')
+  .action(start);
+
+program
+  .command('deploy')
+  .description('deploys a Restle instance on Google Cloud')
+  .action(deploy);
+
+program
+  .command('scale [number]')
+  .description('scales the currently deployed application')
+  .action(scale);
 
 program.parse(process.argv);
 
-if (process.argv.slice(1).length) program.help();
+const validCommands = /(init|schemas?|start|deploy|scale)/;
+const command = process.argv[2];
+
+if (!command || !validCommands.test(command)) program.help();

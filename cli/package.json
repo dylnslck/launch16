@@ -4,8 +4,9 @@
   "description": "Restle CLI",
   "main": "restle.js",
   "dependencies": {
-    "chalk": "^1.1.1",
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^2.2.0",
