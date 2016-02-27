@@ -14,10 +14,16 @@ program
   .action(init);
 
 program
-  .command('schema <action> <type> [...args]')
-  .description('create, update, or delete schemas')
+  .command('schema <action> <type> [fields...]')
+  .alias('schemas')
+  .option('-a, --attributes', 'schema attributes to add, update, or remove')
+  .option('-r, --relationships', 'schema relationships to add, update, or remove')
+  .description('add, update, or delete schemas')
   .action(schema);
 
 program.parse(process.argv);
 
-if (process.argv.slice(1).length) program.help();
+const validCommands = /(init|schemas?)/;
+const command = process.argv[2];
+
+if (!command || !validCommands.test(command)) program.help();

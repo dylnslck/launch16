@@ -1,53 +1,59 @@
-/* eslint-disable no-console */
-
 'use strict';
 
 const path = require('path');
 const fs = require('fs');
 
+const error = require('./error');
+const typeValidator = require('./Constants').typeValidator;
+const parseFields = require('./parseSchemaFields');
+
 const schemasDir = path.resolve('./schemas.json');
 
-const error = msg => {
-  console.error(msg);
-  process.exit(1);
-};
-
-const schema = (action, type) => {
+module.exports = (action, type, fields) => {
   // validate <action>
-  if (['add', 'update', 'delete'].indexOf(action) === -1) error('invalid argument `action`');
+  if (!/(add|remove)/.test(action)) error(`invalid argument \`action\` ${action}`);
 
   // validate <type>
-  if (!/^[a-z0-9]+([-_]*[a-z0-9]+)*$/i.test(type)) error('invalid argument `type`');
+  if (!typeValidator.test(type)) error(`invalid argument \`type\` ${type}`);
 
-  // check that `schemas.json` exists
+  // check that `schemas.json` exists and make it if it doesn't
   let schemas;
   try {
     schemas = require(schemasDir);
   } catch (e) {
-    error(`could not find ${schemasDir}`);
+    schemas = {};
   }
 
-  const hasType = schemas.hasOwnProperty(type);
+  // make sure that `schemas` has the one being currently modified
+  if (!schemas[type]) Object.assign(schemas, { [type]: { attributes: {}, relationships: {} } });
+  const s = schemas[type];
 
   switch (action) {
-    case 'add':
-      if (hasType) error(`\`${type}\` schema already exists`);
-      schemas[type] = {};
+    case 'add': // eslint-disable-line no-case-declarations
+      const schema = parseFields(schemas, fields);
+      s.attributes = Object.assign(
+        s.attributes ? s.attributes : {},
+        schema.attributes
+      );
+      s.relationships = Object.assign(
+        s.relationships ? s.relationships : {},
+        schema.relationships
+      );
       break;
-    case 'update':
-      console.log('update');
-      break;
-    case 'delete':
-      if (!hasType) error(`\`${type}\` schema doesn't exist`);
-      delete schemas[type];
+    case 'remove':
+      if (!fields.length) delete schemas[type];
+      if (fields.indexOf('attributes') !== -1) s.attributes = {};
+      if (fields.indexOf('relationships') !== -1) s.relationships = {};
+      fields.forEach(field => {
+        delete s.attributes[field];
+        delete s.relationships[field];
+      });
       break;
     default:
-      console.error('unexpected error');
+      error('unexpected error');
       break;
   }
 
   // rewrite `schemas.json`
   fs.writeFileSync(schemasDir, JSON.stringify(schemas, null, 2));
 };
-
-module.exports = schema;
