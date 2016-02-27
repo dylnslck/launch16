@@ -6,7 +6,8 @@
   "author": "Dylan Slack <dylanslack@gmail.com> (http://www.dylanslack.me)",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "cors": "^2.7.1"
+    "cors": "^2.7.1",
+    "express": "^4.13.4"
   },
   "devDependencies": {
     "eslint": "^2.2.0",
