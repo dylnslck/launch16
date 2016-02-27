@@ -1,0 +1,15 @@
+{
+  "name": "dispatcher",
+  "version": "0.0.1",
+  "description": "Restle's dispatcher.",
+  "main": "index.js",
+  "author": "Dylan Slack <dylanslack@gmail.com> (http://www.dylanslack.me)",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.2"
+  }
+}
