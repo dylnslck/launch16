@@ -2,9 +2,11 @@
 
 const path = require('path');
 const fs = require('fs');
+const Firebase = require('firebase');
 
 const error = require('./error');
 const parse = require('./parse');
+const serialize = require('../deploy/serialize');
 
 module.exports = (action, type, fields) => {
   // validate <action>
@@ -59,4 +61,22 @@ module.exports = (action, type, fields) => {
 
   // rewrite `schemas.json`
   fs.writeFileSync(schemasDir, JSON.stringify(schemas, null, 2));
+  const appId = fs.readFileSync(path.resolve(__dirname, '../../.app'), 'utf-8');
+  const ref = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
+  const serial = serialize(path.resolve('./'));
+  // console.log(Object.keys(serial).map(key => {
+  //   return {
+  //     filename: new Buffer(key, 'base64').toString('utf-8'),
+  //     contents: new Buffer(serial[key], 'base64').toString('utf-8'),
+  //   }
+  // }));
+  ref.child('image').set(serial, err => {
+    if (err) {
+      console.error('Failed to synchronize!')
+      process.exit(1);
+    } else {
+      console.log('Synchronized!');
+      process.exit(0);
+    }
+  });
 };

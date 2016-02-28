@@ -1,3 +1,5 @@
+'use strict';
+
 const error = require('./error');
 
 const fieldsError = fields => error('invalid argument `fields`', fields);
@@ -15,15 +17,15 @@ module.exports = (schemas, fields) => {
   // get all attributes and relationships
   const ai = fields.indexOf('attributes');
   const ri = fields.indexOf('relationships');
-  const attributes = [];
-  const relationships = [];
+  let attributes = [];
+  let relationships = [];
   if (ai !== -1) {
-    attributes.concat(ai < ri ?
+    attributes = attributes.concat(ai < ri ?
       fields.slice(ai + 1, ri === -1 ? undefined : ri) :
       fields.slice(ai + 1));
   }
   if (ri !== -1) {
-    relationships.concat(ri < ai ?
+    relationships = relationships.concat(ri < ai ?
       fields.slice(ri + 1, ai === -1 ? undefined : ai) :
       fields.slice(ri + 1));
   }

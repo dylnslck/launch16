@@ -1,23 +1,22 @@
 /* eslint no-console: 0 */
 
-require('dotenv').config();
 const Firebase = require('firebase');
-const FirebaseTokenGenerator = require('firebase-token-generator');
 const fs = require('fs');
-const path = require('path');
+require('dotenv').config();
 
-const generator = new FirebaseTokenGenerator(process.env.FIREBASE_SECRET);
-const ref = new Firebase('https://restle-launch2016.firebaseio.com');
+const login = require('./login');
+
+const ref = new Firebase(process.env.FIREBASE_REF_URL);
 
 module.exports = () => {
-  const token = generator.createToken({ uid: 'restle' });
-  ref.authWithCustomToken(token, (err, authData) => {
-    if (err) {
-      console.error('Authentication failed!', err);
-      process.exit(1);
-    } else {
-      fs.writeFileSync(path.resolve(__dirname, '../../.login'), JSON.stringify(authData, null, 2));
+  login()
+    .then(auth => ref.authWithCustomToken(auth.token))
+    .then(authResult => {
+      fs.writeFileSync(`${__dirname}/../../.session`, JSON.stringify(authResult, null, 2));
+      console.log('Login success!');
       process.exit(0);
-    }
-  });
+    }).catch(() => {
+      console.error('Login failed!');
+      process.exit(1);
+    });
 };

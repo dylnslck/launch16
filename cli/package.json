@@ -5,14 +5,14 @@
   "bin": "./restle",
   "dependencies": {
     "commander": "^2.9.0",
-    "dotenv": "^2.0.0",
     "firebase": "^2.4.1",
-    "firebase-token-generator": "^2.0.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
+    "nightmare": "^2.2.0",
     "superagent": "^1.8.0-beta.2"
   },
   "devDependencies": {
+    "dotenv": "^2.0.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.2"
   }

@@ -20,7 +20,7 @@ program
   .action(login);
 
 program
-  .command('init [dir]')
+  .command('init <name>')
   .description('scaffolds a Restle application')
   .action(init);
 
