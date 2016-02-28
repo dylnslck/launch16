@@ -1,6 +1,5 @@
 'use strict';
 
-const Firebase = require('firebase');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,21 +8,13 @@ const AWS = require('aws-sdk');
 const port = process.env.PORT || 3000;
 const app = express();
 
-const RESTLE_IMAGE = 'ami-bf407fd5'; // restle-instance-4
+const RESTLE_IMAGE = 'ami-bf407fd5'; // restle-instance-5
 const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
 
 app.use(bodyParser.json());
 app.use(cors());
-
-app.post('/login', (req, res, next) => {
-
-});
-
-app.post('/app', (req, res, next) => {
-
-});
 
 // create an EC2 instance with the appropriate data
 app.post('/init', (req, res, next) => {
