@@ -9,6 +9,7 @@ const appId = process.env.APP_ID;
 const appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
 
 const metaDataUrl = 'http://169.254.169.254/latest/dynamic/instance-identity/document';
+const region = 'us-east-1';
 
 const build = image => {
   Object.keys(image).forEach(key => {
@@ -21,6 +22,8 @@ const build = image => {
 let child;
 
 rp(metaDataUrl).then(content => {
+  const instanceId = proc.execSync('ec2metadata --instance-id', { encoding: 'utf-8' });
+  console.log('instanceId', instanceId);
   console.log('content:', content);
   process.env.PORT = 8000;
   return content;
