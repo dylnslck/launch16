@@ -10,4 +10,5 @@ export default DS.Model.extend({
   url: attr('string'),
   owner: belongsTo('user'),
   schemas: hasMany('schema'),
+  ip: attr('string'),
 });
