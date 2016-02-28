@@ -2,9 +2,9 @@
 
 'use strict';
 
-require('dotenv').config();
 const path = require('path');
-const fs = require('fs');
+require('dotenv').config({ path: path.resolve('../') });
+const fs = require('fs-extra');
 const Firebase = require('firebase');
 
 const error = require('./error');
@@ -65,6 +65,15 @@ module.exports = (action, type, fields) => {
   // rewrite `schemas.json`
   fs.writeFileSync(schemasDir, JSON.stringify(schemas, null, 2));
   const ref = new Firebase(process.env.FIREBASE_REF_URL);
+  const auth = fs.readJsonSync(`${__dirname}/../../.session`, { throws: false });
+  if (auth) {
+    ref.authWithCustomToken(auth.token);
+  } else {
+    console.error('Initialization failed!');
+    console.error('Not authenticated.');
+    console.error('Run `restle login` to log in.');
+    process.exit(1);
+  }
   ref.child(`users/${ref.getAuth().uid}/currentApp`).once('value', snapshot => {
     if (snapshot.exists) {
       const serial = serialize('.'); // FIXME: do a better directory!!!
