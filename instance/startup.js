@@ -41,8 +41,7 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
 }).then(() => {
   // when the app image changes, reinstantiate the restle app
   appRef.child('image').on('value', snapshot => {
-    const appName = appRef.key('name');
-    appRef.child('isDeploying').set(true);
+    appRef.child('isDeploying').set(false);
 
     build(snapshot.val());
 
@@ -54,8 +53,9 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
     proc.execSync('cd ~/launch16/instance/dist/app && npm install');
     child = proc.spawn('node', [path.resolve(__dirname, `dist/${appName}`, 'index.js')]);
 
-    appRef.child('isDeploying').set(false);
+    appRef.child('isDeploying').set(true);
     child.stdout.on('data', data => process.stdout.write(data));
     child.stderr.on('data', data => process.stderr.write(data));
   });
+
 });
