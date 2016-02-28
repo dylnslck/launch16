@@ -9,7 +9,7 @@ const AWS = require('aws-sdk');
 const port = process.env.PORT || 3000;
 const app = express();
 
-const RESTLE_IMAGE = 'ami-2c695646';
+const RESTLE_IMAGE = 'ami-bf407fd5'; // restle-instance-4
 const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
@@ -32,8 +32,6 @@ app.post('/init', (req, res, next) => {
   const appName = req.body.appName;
   const userId = req.body.userId;
   const appId = req.body.appId;
-
-  const ref = new Firebase('https://myprojectname.firebaseIO-demo.com/');
 
   let params = {
     ImageId: RESTLE_IMAGE,
