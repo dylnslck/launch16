@@ -1,28 +1,17 @@
 'use strict';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const Firebase = require('firebase');
 const AWS = require('aws-sdk');
 
-const port = process.env.PORT || 3000;
-const app = express();
-
-const RESTLE_IMAGE = 'ami-bf407fd5'; // restle-instance-5
+const RESTLE_IMAGE = 'ami-2c221d46'; // restle-instance-5
 const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
 
-app.use(bodyParser.json());
-app.use(cors());
+const ref = new Firebase('https://restle-launch2016.firebaseio.com');
 
-// create an EC2 instance with the appropriate data
-app.post('/init', (req, res, next) => {
+const init = (appName, userId, appId) => new Promise((resolve, reject) => {
   const ec2 = new AWS.EC2();
-
-  const appName = req.body.appName;
-  const userId = req.body.userId;
-  const appId = req.body.appId;
 
   let params = {
     ImageId: RESTLE_IMAGE,
@@ -30,8 +19,8 @@ app.post('/init', (req, res, next) => {
     MinCount: 1, MaxCount: 1,
   };
 
-  ec2.runInstances(params, (err, data) => {
-    if (err) return res.status(500).json(err);
+  return ec2.runInstances(params, (err, data) => {
+    if (err) return reject(err);
 
     const instanceId = data.Instances[0].InstanceId;
 
@@ -46,12 +35,24 @@ app.post('/init', (req, res, next) => {
       }],
     };
 
-    ec2.createTags(params, tagErr => {
-      if (tagErr) return res.status(500).json(tagErr);
-      return res.json({ success: true })
+    return ec2.createTags(params, tagErr => {
+      if (tagErr) return reject(tagErr);
+
+      return resolve();
     });
   });
 });
 
-app.listen(port);
-console.log(`Listening on port ${port}.`);
+ref.child('apps').on('child_added', snapshot => {
+  const val = snapshot.val();
+  const appId = snapshot.key();
+
+  const appName = val.name;
+  const owner = val.owner;
+
+  ref.child(`users/${owner}`).child('currentApp').set(appId);
+
+  init(appName, owner, appId).then(() => {
+    console.log('Instane created!');
+  });
+});
