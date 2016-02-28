@@ -39,6 +39,8 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
 
   // when the app image changes, reinstantiate the restle app
   appRef.child('image').on('value', snapshot => {
+    appRef.child('isDeploying').set(true);
+
     if (snapshot.exists()) {
       // build `dist`
       build(snapshot.val());
