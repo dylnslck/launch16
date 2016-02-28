@@ -27,6 +27,7 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
     if (err) return reject(err);
 
     const instanceId = data.Instances[0].InstanceId;
+    console.log(data.Instances[0]);
 
     params = {
       Resources: [instanceId],
@@ -58,9 +59,7 @@ ref.child('apps').on('child_added', snapshot => {
 
   ref.child(`users/${owner}/currentApp`).set(appId);
   ref.child(`users/${owner}/apps`).once('value', s => {
-    const curr = s.exists() ? Array.prototype.slice.call(s.val()) : [];
-    curr.push(snapshot.key());
-    s.ref().set(curr);
+    s.ref().set({ [snapshot.key()]: true });
   });
 
   init(appName, owner, appId).then(() => {

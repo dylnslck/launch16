@@ -1,6 +1,6 @@
 {
-  "name": "restle-cli",
-  "version": "0.0.0",
+  "name": "restle-launch",
+  "version": "0.0.2",
   "description": "Restle CLI",
   "bin": "./restle",
   "dependencies": {
@@ -12,7 +12,6 @@
     "open": "0.0.5"
   },
   "devDependencies": {
-    "dotenv": "^2.0.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.2"
   }
