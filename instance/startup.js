@@ -5,8 +5,6 @@ const rp = require('request-promise');
 const fs = require('fs-extra');
 const path = require('path');
 const proc = require('child_process');
-const appId = process.env.APP_ID;
-const appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
 
 const metaDataUrl = 'http://169.254.169.254/latest/dynamic/instance-identity/document';
 const region = 'us-east-1';
@@ -20,11 +18,17 @@ const build = image => {
 };
 
 let child;
+let appRef;
 
 rp(metaDataUrl).then(content => {
-  const instanceId = proc.execSync('ec2metadata --instance-id', { encoding: 'utf-8' });
-  console.log('instanceId', instanceId);
-  console.log('content:', content);
+  const instanceId = content.instanceId;
+  console.log('isntanceId:', instanceId);
+  const appId = proc.execSync(`aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=AppId" --region=us-east-1 --output=text | cut -f5`, { encoding: 'utf-8' });
+  console.log('appId:', appId);
+  const userId = proc.execSync(`aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=UserId" --region=us-east-1 --output=text | cut -f5`, { encoding: 'utf-8' });
+
+  appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
+
   process.env.PORT = 8000;
   return content;
 }).then(content => {
