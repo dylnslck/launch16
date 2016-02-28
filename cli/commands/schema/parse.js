@@ -1,6 +1,8 @@
+/* eslint no-console: 0 */
+
 'use strict';
 
-const error = require('./error');
+const error = require('./error.js');
 
 const fieldsError = fields => error('invalid argument `fields`', fields);
 const attributeError = attribute => error('invalid argument `attribute`', attribute);

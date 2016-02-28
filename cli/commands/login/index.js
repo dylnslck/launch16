@@ -11,8 +11,10 @@ module.exports = () => {
 
   login()
     .then(auth => ref.authWithCustomToken(auth.token))
-    .then(authResult => {
-      fs.writeFileSync(`${__dirname}/../../.session`, JSON.stringify(authResult, null, 2));
+    .then(auth => {
+      console.log(auth);
+      ref.child('users').update({ [auth.uid]: { provider: auth.provider } });
+      fs.writeFileSync(`${__dirname}/../../.session`, JSON.stringify(auth, null, 2));
       console.log('Login success!');
       process.exit(0);
     }).catch(err => {

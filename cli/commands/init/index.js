@@ -19,6 +19,10 @@ module.exports = name => {
   const auth = fs.readJsonSync(`${__dirname}/../../.session`, { throws: false });
   if (auth) {
     ref.authWithCustomToken(auth.token);
+  } else {
+    console.error('Initialization failed!');
+    console.error('Not authenticated');
+    console.error('Run `restle login` to log in.');
   }
   ref.child('apps').push({ owner: auth.uid, name }).then(app => {
     // deploy the newly created folder structure

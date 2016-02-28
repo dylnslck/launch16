@@ -26,7 +26,7 @@ program
 program
   .command('schema <action> <type> [fields...]')
   .alias('schemas')
-  .description('manage Restle schemas')
+  .description('add and remove Restle schemas')
   .action(schema);
 
 program
