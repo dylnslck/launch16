@@ -3,6 +3,7 @@
 const program = require('commander');
 
 const pkg = require('./package.json');
+const login = require('./commands/login');
 const init = require('./commands/init');
 const schema = require('./commands/schema');
 const start = require('./commands/start');
@@ -12,6 +13,11 @@ const test = require('./commands/test');
 
 program
   .version(pkg.version);
+
+program
+  .command('login')
+  .description('log in to Restle')
+  .action(login);
 
 program
   .command('init [dir]')
@@ -31,7 +37,7 @@ program
   .action(start);
 
 program
-  .command('deploy')
+  .command('deploy [dir]')
   .description('deploys a Restle instance')
   .action(deploy);
 
@@ -48,7 +54,7 @@ program
 
 program.parse(process.argv);
 
-const validCommands = /(init|schemas?|start|deploy|scale)/;
+const validCommands = /(init|schemas?|start|deploy|scale|login)/;
 const command = process.argv[2];
 
 if (!command || !validCommands.test(command)) program.help();

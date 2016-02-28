@@ -15,13 +15,17 @@ const ncp = (fn => (source, destination) => new Promise((resolve, reject) => {
 }))(require('ncp'));
 
 module.exports = dir => {
-  mkdirp(path.resolve(dir)).then(err => {
+  mkdirp(path.resolve(dir || '.')).then(err => {
     if (err) return Promise.reject(err);
     return Promise.resolve();
-  }).then(() => Promise.all([
-    ncp(path.resolve(__dirname, 'templates/index.js'), path.resolve(dir, 'index.js')),
-    ncp(path.resolve(__dirname, 'templates/package.json'), path.resolve(dir, 'package.json')),
-  ])).catch(err => {
+  }).then(() => {
+    return Promise.all([
+      ncp(path.resolve(__dirname, 'templates/index.js'), path.resolve(dir, 'index.js')),
+      ncp(path.resolve(__dirname, 'templates/package.json'), path.resolve(dir, 'package.json')),
+    ]);
+  }).then(promises => {
+    console.log(promises);
+  }).catch(err => {
     console.error(err);
   });
 };
