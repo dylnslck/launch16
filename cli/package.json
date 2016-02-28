@@ -1,5 +1,5 @@
 {
-  "name": "restle-cli",
+  "name": "restle-launch",
   "version": "0.0.0",
   "description": "Restle CLI",
   "bin": "./restle",
