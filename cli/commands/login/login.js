@@ -1,5 +1,5 @@
-const Nightmare = require('nightmare');
 require('dotenv').config();
+const Nightmare = require('nightmare');
 
 module.exports = () => {
   const nightmare = new Nightmare({
