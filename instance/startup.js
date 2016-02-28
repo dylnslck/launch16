@@ -23,10 +23,11 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
   const instanceId = content.instanceId;
   const getApp = `aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=AppId" --region=us-east-1 --output=text | cut -f5`;
   const getUser = `aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=UserId" --region=us-east-1 --output=text | cut -f5`;
-  const appId = proc.execSync(getApp, { encoding: 'utf-8' });
-  const userId = proc.execSync(getUser, { encoding: 'utf-8' });
+  proc.execSync('sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000');
+  const appId = proc.execSync(getApp, { encoding: 'utf-8' }).replace('\n', '');
+  const userId = proc.execSync(getUser, { encoding: 'utf-8' }).replace('\n', '');
 
-  appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
+  appRef = new Firebase('https://restle-launch2016.firebaseio.com/apps/' + appId);
 
   process.env.USER_ID = userId;
   process.env.APP_ID = appId;
