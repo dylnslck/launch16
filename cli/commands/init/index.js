@@ -21,8 +21,9 @@ module.exports = name => {
     ref.authWithCustomToken(auth.token);
   } else {
     console.error('Initialization failed!');
-    console.error('Not authenticated');
+    console.error('Not authenticated.');
     console.error('Run `restle login` to log in.');
+    process.exit(1);
   }
   ref.child('apps').push({ owner: auth.uid, name }).then(app => {
     // deploy the newly created folder structure

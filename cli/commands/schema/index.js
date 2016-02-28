@@ -1,5 +1,8 @@
+/* eslint no-console: 0 */
+
 'use strict';
 
+require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const Firebase = require('firebase');
@@ -61,22 +64,24 @@ module.exports = (action, type, fields) => {
 
   // rewrite `schemas.json`
   fs.writeFileSync(schemasDir, JSON.stringify(schemas, null, 2));
-  const appId = fs.readFileSync(path.resolve(__dirname, '../../.app'), 'utf-8');
-  const ref = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
-  const serial = serialize(path.resolve('./'));
-  // console.log(Object.keys(serial).map(key => {
-  //   return {
-  //     filename: new Buffer(key, 'base64').toString('utf-8'),
-  //     contents: new Buffer(serial[key], 'base64').toString('utf-8'),
-  //   }
-  // }));
-  ref.child('image').set(serial, err => {
-    if (err) {
-      console.error('Failed to synchronize!')
-      process.exit(1);
+  const ref = new Firebase(process.env.FIREBASE_REF_URL);
+  ref.child(`users/${ref.getAuth().uid}/currentApp`).once('value', snapshot => {
+    if (snapshot.exists) {
+      const serial = serialize('.'); // FIXME: do a better directory!!!
+      ref.child(`apps/${snapshot.val()}/image`).set(serial, err => {
+        if (err) {
+          console.error('Failed to synchronize!');
+          process.exit(1);
+        } else {
+          console.log('Synchronized!');
+          process.exit(0);
+        }
+      });
     } else {
-      console.log('Synchronized!');
-      process.exit(0);
+      console.error('Failed to synchronize!');
+      console.error('Not authenticated.');
+      console.error('Run `restle login` to log in.');
+      process.exit(1);
     }
   });
 };

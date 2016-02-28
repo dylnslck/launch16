@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 'use strict';
 
 const Firebase = require('firebase');
@@ -9,10 +11,9 @@ const RESTLE_EC2 = 't2.micro';
 AWS.config.region = 'us-east-1';
 
 const ref = new Firebase('https://restle-launch2016.firebaseio.com');
+const ec2 = new AWS.EC2();
 
 const init = (appName, userId, appId) => new Promise((resolve, reject) => {
-  const ec2 = new AWS.EC2();
-
   let params = {
     ImageId: RESTLE_IMAGE,
     InstanceType: RESTLE_EC2,
@@ -43,22 +44,19 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
   });
 });
 
-let deployed = false;
 ref.child('apps').on('child_added', snapshot => {
-  if (!deployed) return;
+  if (!snapshot.val().alive) {
+    const val = snapshot.val();
+    const appId = snapshot.key();
+    const appName = val.name;
+    const owner = val.owner;
 
-  const val = snapshot.val();
-  const appId = snapshot.key();
-  const appName = val.name;
-  const owner = val.owner;
+    ref.child(`apps/${appId}/isDeploying`).set(true);
+    ref.child(`users/${owner}/currentApp`).set(appId);
+    ref.child(`users/${owner}/apps`).push(appId);
 
-  ref.child(`apps/${appId}`).child('isDeploying').set(true);
-  ref.child(`users/${owner}`).child('currentApp').set(appId);
-
-  init(appName, owner, appId).then(() => {
-    console.log('Instance created!');
-  });
-});
-ref.child('apps').once('value', () => {
-  deployed = true;
+    init(appName, owner, appId).then(() => {
+      console.log('Instance created!');
+    });
+  }
 });
