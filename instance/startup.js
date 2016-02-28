@@ -7,6 +7,7 @@ const path = require('path');
 const proc = require('child_process');
 
 const metaDataUrl = 'http://169.254.169.254/latest/dynamic/instance-identity/document';
+const ipUrl = 'http://169.254.169.254/latest/meta-data/public-ipv4';
 
 const build = image => {
   Object.keys(image).forEach(key => {
@@ -18,8 +19,13 @@ const build = image => {
 };
 
 let child;
+let ipAddress;
 
-rp({ json: true, uri: metaDataUrl }).then(content => {
+rp({ ip: ipUrl }).then(ip => {
+  ipAddress = ip;
+
+  return rp({ json: true, uri: metaDataUrl });
+}).then(content => {
   const instanceId = content.instanceId;
   const getApp = `aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=AppId" --region=us-east-1 --output=text | cut -f5`;
   const getUser = `aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=UserId" --region=us-east-1 --output=text | cut -f5`;
@@ -40,6 +46,7 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
   // when the app image changes, reinstantiate the restle app
   appRef.child('image').on('value', snapshot => {
     appRef.child('isDeploying').set(true);
+    appRef.child('ip').set(ipAddress);
 
     if (snapshot.exists()) {
       // build `dist`
