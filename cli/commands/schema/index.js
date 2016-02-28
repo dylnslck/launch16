@@ -68,8 +68,9 @@ module.exports = (action, type, fields) => {
   if (auth) {
     ref.authWithCustomToken(auth.token).then(() => {
       ref.child(`users/${ref.getAuth().uid}/currentApp`).once('value', snapshot => {
-        if (snapshot.exists) {
+        if (snapshot.exists()) {
           const serial = serialize('.'); // FIXME: do a better directory!!!
+          ref.child(`apps/${snapshot.val()}/schemas`).update(schemas);
           ref.child(`apps/${snapshot.val()}/image`).set(serial, err => {
             if (err) {
               console.error('Failed to synchronize!');

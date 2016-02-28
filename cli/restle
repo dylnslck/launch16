@@ -7,6 +7,7 @@ const login = require('./commands/login');
 const logout = require('./commands/logout');
 const init = require('./commands/init');
 const schema = require('./commands/schema');
+const open = require('./commands/open');
 const start = require('./commands/start');
 const scale = require('./commands/scale');
 const test = require('./commands/test');
@@ -36,6 +37,11 @@ program
   .action(schema);
 
 program
+  .command('open')
+  .description('opens your Restle dashboard')
+  .action(open);
+
+program
   .command('start')
   .option('-p, --port <port>', 'the port to run the instance on')
   .description('starts a Restle instance on localhost')
@@ -54,7 +60,7 @@ program
 
 program.parse(process.argv);
 
-const validCommands = /(login|logout|init|schemas?|start|scale)/;
+const validCommands = /(login|logout|init|schemas?|open|start|scale)/;
 const command = process.argv[2];
 
 if (!command || !validCommands.test(command)) program.help();
