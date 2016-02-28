@@ -55,7 +55,7 @@ module.exports = (action, type, fields) => {
       });
       break;
     default:
-      error('unexpected error');
+      error('Unexpected error!');
       break;
   }
 
