@@ -5,8 +5,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const AWS = require('aws-sdk');
+
 const port = process.env.PORT || 3000;
 const app = express();
+
+const RESTLE_IMAGE = 'ami-2c695646';
+const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
 
@@ -21,27 +25,27 @@ app.post('/app', (req, res, next) => {
 
 });
 
+// create an EC2 instance with the appropriate data
 app.post('/deploy', (req, res, next) => {
   const ec2 = new AWS.EC2();
 
   const appName = req.body.appName;
   const userId = req.body.userId;
   const appId = req.body.appId;
-  const image = req.body.image;
+
+  const ref = new Firebase('https://myprojectname.firebaseIO-demo.com/');
 
   let params = {
-    ImageId: 'ami-3b8bb751', // restle-image-1
-    InstanceType: 't2.micro',
+    ImageId: RESTLE_IMAGE,
+    InstanceType: RESTLE_EC2,
     MinCount: 1, MaxCount: 1,
   };
 
-  // Create the instance
   ec2.runInstances(params, (err, data) => {
-    if (err) { console.log("Could not create instance", err); return; }
+    if (err) return res.status(500).json(err);
 
     const instanceId = data.Instances[0].InstanceId;
 
-    // Add tags to the instance
     params = {
       Resources: [instanceId],
       Tags: [{
@@ -54,7 +58,8 @@ app.post('/deploy', (req, res, next) => {
     };
 
     ec2.createTags(params, tagErr => {
-      console.log("Tagging instance", tagErr ? "failure" : "success");
+      if (tagErr) return res.status(500).json(tagErr);
+      return res.json({ success: true })
     });
   });
 });
