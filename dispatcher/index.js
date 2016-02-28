@@ -1,5 +1,6 @@
 'use strict';
 
+const Firebase = require('firebase');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,14 +13,24 @@ AWS.config.region = 'us-east-1';
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/instantiate', (req, res, next) => {
+app.post('/login', (req, res, next) => {
+
+});
+
+app.post('/app', (req, res, next) => {
+
+});
+
+app.post('/deploy', (req, res, next) => {
   const ec2 = new AWS.EC2();
-  const name = req.body.name || 'random-name';
-  const user = req.body.user || '12345';
-  const appId = req.body.app || 'app';
+
+  const appName = req.body.appName;
+  const userId = req.body.userId;
+  const appId = req.body.appId;
+  const image = req.body.image;
 
   let params = {
-    ImageId: 'ami-e29ba788', // restle-image-1
+    ImageId: 'ami-3b8bb751', // restle-image-1
     InstanceType: 't2.micro',
     MinCount: 1, MaxCount: 1,
   };
@@ -34,9 +45,9 @@ app.post('/instantiate', (req, res, next) => {
     params = {
       Resources: [instanceId],
       Tags: [{
-        Key: 'Name', Value: name,
+        Key: 'Name', Value: appName,
       }, {
-        Key: 'UserId', Value: user,
+        Key: 'UserId', Value: userId,
       }, {
         Key: 'AppId', Value: appId,
       }],

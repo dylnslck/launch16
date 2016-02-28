@@ -5,5 +5,6 @@ const belongsTo = DS.belongsTo;
 export default DS.Model.extend({
   name: attr('string'),
   isCurrent: attr('boolean'),
+  isDeployed: attr('boolean'),
   owner: belongsTo('user'),
 });

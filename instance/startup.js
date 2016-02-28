@@ -1,11 +1,14 @@
 'use strict';
 
 const Firebase = require('firebase');
+const rp = require('request-promise');
 const fs = require('fs-extra');
 const path = require('path');
 const proc = require('child_process');
-const appId = process.env.APP_ID || '-KBYPhy_Q7EtKQC74CuH';
+const appId = process.env.APP_ID;
 const appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
+
+const metaDataUrl = 'http://169.254.169.254/latest/dynamic/instance-identity/document';
 
 const build = image => {
   Object.keys(image).forEach(key => {
@@ -17,17 +20,23 @@ const build = image => {
 
 let child;
 
-// when the app image changes, reinstantiate the restle app
-appRef.child('image').on('value', snapshot => {
-  build(snapshot.val());
+rp(metaDataUrl).then(content => {
+  console.log('content:', content);
+  process.env.PORT = 8000;
+  return content;
+}).then(content => {
+  // when the app image changes, reinstantiate the restle app
+  appRef.child('image').on('value', snapshot => {
+    build(snapshot.val());
 
-  if (child && child.connected) {
-    child.disconnect();
-  }
+    if (child && child.connected) {
+      child.disconnect();
+    }
 
-  proc.execSync('cd dist/app && npm install');
-  child = proc.spawn('node', [path.resolve(__dirname, 'dist/app', 'index.js')]);
+    proc.execSync('cd dist/app && npm install');
+    child = proc.spawn('node', [path.resolve(__dirname, 'dist/app', 'index.js')]);
 
-  child.stdout.on('data', data => process.stdout.write(data));
-  child.stderr.on('data', data => process.stderr.write(data));
+    child.stdout.on('data', data => process.stdout.write(data));
+    child.stderr.on('data', data => process.stderr.write(data));
+  });
 });
