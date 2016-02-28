@@ -7,7 +7,6 @@ const login = require('./commands/login');
 const init = require('./commands/init');
 const schema = require('./commands/schema');
 const start = require('./commands/start');
-const deploy = require('./commands/deploy');
 const scale = require('./commands/scale');
 const test = require('./commands/test');
 
@@ -37,11 +36,6 @@ program
   .action(start);
 
 program
-  .command('deploy [dir]')
-  .description('deploys a Restle instance')
-  .action(deploy);
-
-program
   .command('scale <number>')
   .description('scales the currently deployed Restle instance')
   .action(scale);
@@ -54,7 +48,7 @@ program
 
 program.parse(process.argv);
 
-const validCommands = /(init|schemas?|start|deploy|scale|login)/;
+const validCommands = /(init|schemas?|start|scale|login)/;
 const command = process.argv[2];
 
 if (!command || !validCommands.test(command)) program.help();

@@ -12,7 +12,7 @@ module.exports = function serializeSync(dir, root) {
       }
       return Object.assign(prevObj, {
         [new Buffer(
-          path.relative(path.resolve(root || dir, '..'), currObj.dir)
+          path.relative(path.resolve(root || dir), currObj.dir)
         ).toString('base64')]: new Buffer(
           fs.readFileSync(currObj.dir, 'utf-8')
         ).toString('base64'),

@@ -46,13 +46,16 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
 ref.child('apps').on('child_added', snapshot => {
   const val = snapshot.val();
   const appId = snapshot.key();
-
   const appName = val.name;
   const owner = val.owner;
+
+  console.log('apps on chid_added snapshot.key():', appId);
+  console.log('apps on chid_added snapshot.val().appName:', appName);
+  console.log('apps on chid_added snapshot.val().owner:', owner);
 
   ref.child(`users/${owner}`).child('currentApp').set(appId);
 
   init(appName, owner, appId).then(() => {
-    console.log('Instane created!');
+    console.log('Instance created!');
   });
 });

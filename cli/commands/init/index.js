@@ -1,13 +1,18 @@
+/* eslint no-console: 0 */
+
 require('dotenv').config();
 const Firebase = require('firebase');
 const fs = require('fs-extra');
 const path = require('path');
+
+const serialize = require('./serialize');
 
 module.exports = name => {
   // scaffold the app
   fs.mkdirpSync(path.resolve(name));
   fs.copySync(`${__dirname}/templates/index.js`, path.resolve(name, 'index.js'));
   fs.copySync(`${__dirname}/templates/package.json`, path.resolve(name, 'package.json'));
+  fs.copySync(`${__dirname}/templates/schemas.json`, path.resolve(name, 'schemas.json'));
 
   // make a new app in Firebase
   const ref = new Firebase(process.env.FIREBASE_REF_URL);
@@ -16,9 +21,13 @@ module.exports = name => {
     ref.authWithCustomToken(auth.token);
   }
   ref.child('apps').push({ owner: auth.uid, name }).then(app => {
-    console.log('Deploying...');
-    app.child('isDeploying').once('value', snapshot => {
-      snapshot.ref().once('value', () => {
+    // deploy the newly created folder structure
+    app.child('image').set(serialize(path.resolve(name)));
+
+    app.child('isDeploying').once('child_changed', snapshot => {
+      console.log('Deploying...');
+      snapshot.ref().once('child_modified', () => {
+        console.log('Deployed!');
         process.exit(0);
       });
     });
