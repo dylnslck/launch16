@@ -26,7 +26,7 @@ app.post('/app', (req, res, next) => {
 });
 
 // create an EC2 instance with the appropriate data
-app.post('/deploy', (req, res, next) => {
+app.post('/init', (req, res, next) => {
   const ec2 = new AWS.EC2();
 
   const appName = req.body.appName;
