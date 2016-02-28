@@ -4,6 +4,9 @@
 
 const Firebase = require('firebase');
 const AWS = require('aws-sdk');
+const express = require('express');
+const app = express();
+app.listen(process.env.PORT);
 
 const RESTLE_IMAGE = 'ami-421c2328'; // restle-8
 const RESTLE_EC2 = 't2.micro';

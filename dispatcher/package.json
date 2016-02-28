@@ -6,6 +6,7 @@
   "author": "Dylan Slack <dylanslack@gmail.com> (http://www.dylanslack.me)",
   "dependencies": {
     "aws-sdk": "^2.2.39",
+    "express": "^4.13.4",
     "firebase": "^2.4.1"
   },
   "devDependencies": {
