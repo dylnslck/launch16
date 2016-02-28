@@ -1,13 +1,12 @@
 /* eslint no-console: 0 */
 
-require('dotenv').config();
 const Firebase = require('firebase');
 const fs = require('fs');
 
 const login = require('./login');
 
 module.exports = () => {
-  const ref = new Firebase(process.env.FIREBASE_REF_URL);
+  const ref = new Firebase('https://restle-launch2016.firebaseio.com/');
 
   login()
     .then(auth => ref.authWithCustomToken(auth.token))

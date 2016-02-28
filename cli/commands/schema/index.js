@@ -3,7 +3,6 @@
 'use strict';
 
 const path = require('path');
-require('dotenv').config({ path: path.resolve('../') });
 const fs = require('fs-extra');
 const Firebase = require('firebase');
 
@@ -64,33 +63,34 @@ module.exports = (action, type, fields) => {
 
   // rewrite `schemas.json`
   fs.writeFileSync(schemasDir, JSON.stringify(schemas, null, 2));
-  const ref = new Firebase(process.env.FIREBASE_REF_URL);
+  const ref = new Firebase('https://restle-launch2016.firebaseio.com/');
   const auth = fs.readJsonSync(`${__dirname}/../../.session`, { throws: false });
   if (auth) {
-    ref.authWithCustomToken(auth.token);
+    ref.authWithCustomToken(auth.token).then(() => {
+      ref.child(`users/${ref.getAuth().uid}/currentApp`).once('value', snapshot => {
+        if (snapshot.exists) {
+          const serial = serialize('.'); // FIXME: do a better directory!!!
+          ref.child(`apps/${snapshot.val()}/image`).set(serial, err => {
+            if (err) {
+              console.error('Failed to synchronize!');
+              process.exit(1);
+            } else {
+              console.log('Synchronized!');
+              process.exit(0);
+            }
+          });
+        } else {
+          console.error('Failed to synchronize!');
+          console.error('Not authenticated.');
+          console.error('Run `restle login` to log in.');
+          process.exit(1);
+        }
+      });
+    });
   } else {
     console.error('Initialization failed!');
     console.error('Not authenticated.');
     console.error('Run `restle login` to log in.');
     process.exit(1);
   }
-  ref.child(`users/${ref.getAuth().uid}/currentApp`).once('value', snapshot => {
-    if (snapshot.exists) {
-      const serial = serialize('.'); // FIXME: do a better directory!!!
-      ref.child(`apps/${snapshot.val()}/image`).set(serial, err => {
-        if (err) {
-          console.error('Failed to synchronize!');
-          process.exit(1);
-        } else {
-          console.log('Synchronized!');
-          process.exit(0);
-        }
-      });
-    } else {
-      console.error('Failed to synchronize!');
-      console.error('Not authenticated.');
-      console.error('Run `restle login` to log in.');
-      process.exit(1);
-    }
-  });
 };

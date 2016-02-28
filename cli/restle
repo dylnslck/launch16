@@ -49,7 +49,7 @@ program
 program
   .command('test <method> <endpoint>')
   .option('-s, --stress <rps>')
-  .description('tests api endpoints of the currently reployed Reslte app')
+  .description('tests api endpoints of the currently reployed Restle app')
   .action(test);
 
 program.parse(process.argv);

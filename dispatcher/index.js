@@ -51,7 +51,6 @@ ref.child('apps').on('child_added', snapshot => {
     const appName = val.name;
     const owner = val.owner;
 
-    ref.child(`apps/${appId}/isDeploying`).set(true);
     ref.child(`users/${owner}/currentApp`).set(appId);
     ref.child(`users/${owner}/apps`).push(appId);
 

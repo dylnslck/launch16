@@ -10,7 +10,7 @@ const relationshipError = relationship => error('invalid argument `relationship`
 
 module.exports = (schemas, fields) => {
   // make sure the first field is either `attributes` or `relationships`
-  if (fields[0] && !/(attributes|relationships)/.test(fields[0])) fieldsError();
+  if (fields[0] && !/(attributes|relationships)/.test(fields[0])) fieldsError(fields);
 
   // make sure that there is only one of `attributes` or `relationships`
   if (fields.filter(field => field === 'attributes').length > 1) fieldsError(fields);
@@ -55,7 +55,7 @@ module.exports = (schemas, fields) => {
     const field = pair[0];
     const type = pair[1];
     if (!typeValidator.test(field)) attributeError(attribute);
-    if (!/(string|number|boolean|date)/.test(type)) attributeError(attribute);
+    if (!/^(string|number|boolean|date)$/.test(type)) attributeError(attribute);
 
     Object.assign(result.attributes, { [field]: { type } });
   });

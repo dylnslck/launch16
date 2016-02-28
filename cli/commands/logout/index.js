@@ -1,13 +1,12 @@
 /* eslint no-console: 0 */
 
-require('dotenv').config();
 const Firebase = require('firebase');
-const fs = require('fs');
+const fs = require('fs-extra');
 
 module.exports = () => {
-  const ref = new Firebase(process.env.FIREBASE_REF_URL);
+  const ref = new Firebase('https://restle-launch2016.firebaseio.com/');
   ref.unauth();
-  fs.unlinkSync(`${__dirname}/../../.session`);
+  fs.removeSync(`${__dirname}/../../.session`);
   console.log('Logout success!');
   process.exit(0);
 };

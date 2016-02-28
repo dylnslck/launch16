@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-require('dotenv').config();
 const Firebase = require('firebase');
 const fs = require('fs-extra');
 const path = require('path');
@@ -15,7 +14,7 @@ module.exports = name => {
   fs.copySync(`${__dirname}/templates/schemas.json`, path.resolve(name, 'schemas.json'));
 
   // make a new app in Firebase
-  const ref = new Firebase(process.env.FIREBASE_REF_URL);
+  const ref = new Firebase('https://restle-launch2016.firebaseio.com/');
   const auth = fs.readJsonSync(`${__dirname}/../../.session`, { throws: false });
   if (auth) {
     ref.authWithCustomToken(auth.token);
