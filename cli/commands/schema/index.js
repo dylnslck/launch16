@@ -6,7 +6,7 @@ const Firebase = require('firebase');
 
 const error = require('./error');
 const parse = require('./parse');
-// const serialize = require('../deploy/serialize');
+const serialize = require('../init/serialize');
 
 module.exports = (action, type, fields) => {
   // validate <action>

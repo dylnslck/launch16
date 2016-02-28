@@ -3,7 +3,7 @@
 const Firebase = require('firebase');
 const AWS = require('aws-sdk');
 
-const RESTLE_IMAGE = 'ami-2c221d46'; // restle-instance-5
+const RESTLE_IMAGE = 'ami-421c2328'; // restle-8
 const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
@@ -43,19 +43,22 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
   });
 });
 
+let deployed = false;
 ref.child('apps').on('child_added', snapshot => {
+  if (!deployed) return;
+
   const val = snapshot.val();
   const appId = snapshot.key();
   const appName = val.name;
   const owner = val.owner;
 
-  console.log('apps on chid_added snapshot.key():', appId);
-  console.log('apps on chid_added snapshot.val().appName:', appName);
-  console.log('apps on chid_added snapshot.val().owner:', owner);
-
+  ref.child(`apps/${appId}`).child('isDeploying').set(true);
   ref.child(`users/${owner}`).child('currentApp').set(appId);
 
   init(appName, owner, appId).then(() => {
     console.log('Instance created!');
   });
+});
+ref.child('apps').once('value', () => {
+  deployed = true;
 });

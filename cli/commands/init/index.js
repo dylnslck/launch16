@@ -24,12 +24,13 @@ module.exports = name => {
     // deploy the newly created folder structure
     app.child('image').set(serialize(path.resolve(name)));
 
-    app.child('isDeploying').once('child_changed', snapshot => {
-      console.log('Deploying...');
-      snapshot.ref().once('child_modified', () => {
+    app.child('isDeploying').on('value', snapshot => {
+      if (snapshot.val()) {
+        console.log('Deploying...');
+      } else {
         console.log('Deployed!');
         process.exit(0);
-      });
+      }
     });
   }).catch(err => {
     console.error('Initialization failed!');
