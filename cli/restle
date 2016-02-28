@@ -9,7 +9,6 @@ const init = require('./commands/init');
 const schema = require('./commands/schema');
 const open = require('./commands/open');
 const start = require('./commands/start');
-const scale = require('./commands/scale');
 const test = require('./commands/test');
 
 program
@@ -48,19 +47,14 @@ program
   .action(start);
 
 program
-  .command('scale <number>')
-  .description('scales the currently deployed Restle instance')
-  .action(scale);
-
-program
-  .command('test <method> <endpoint>')
+  .command('test <method> <endpoint> [data...]')
   .option('-s, --stress <rps>')
   .description('tests api endpoints of the currently reployed Restle app')
   .action(test);
 
 program.parse(process.argv);
 
-const validCommands = /(login|logout|init|schemas?|open|start|scale)/;
+const validCommands = /(login|logout|init|schemas?|open|start|test)/;
 const command = process.argv[2];
 
 if (!command || !validCommands.test(command)) program.help();

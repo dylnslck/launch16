@@ -29,7 +29,7 @@ module.exports = name => {
     app.child('image').set(serialize(path.resolve(name)));
 
     app.child('isDeploying').on('value', snapshot => {
-      if (snapshot.val()) {
+      if (snapshot.val() !== false) {
         console.log('Deploying...');
       } else {
         console.log('Deployed!');

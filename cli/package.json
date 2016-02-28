@@ -7,7 +7,9 @@
     "commander": "^2.9.0",
     "firebase": "^2.4.1",
     "fs-extra": "^0.26.5",
-    "nightmare": "^2.2.0"
+    "i": "^0.3.4",
+    "nightmare": "^2.2.0",
+    "open": "0.0.5"
   },
   "devDependencies": {
     "dotenv": "^2.0.0",

@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 app.listen(process.env.PORT);
 
-const RESTLE_IMAGE = 'ami-421c2328'; // restle-8
+const RESTLE_IMAGE = 'ami-7e122d14'; // restle-9
 const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
@@ -47,18 +47,22 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
   });
 });
 
+let deployed = false;
 ref.child('apps').on('child_added', snapshot => {
-  if (!snapshot.val().alive) {
-    const val = snapshot.val();
-    const appId = snapshot.key();
-    const appName = val.name;
-    const owner = val.owner;
+  if (!deployed) return;
 
-    ref.child(`users/${owner}/currentApp`).set(appId);
-    ref.child(`users/${owner}/apps`).push(appId);
+  const val = snapshot.val();
+  const appId = snapshot.key();
+  const appName = val.name;
+  const owner = val.owner;
 
-    init(appName, owner, appId).then(() => {
-      console.log('Instance created!');
-    });
-  }
+  ref.child(`users/${owner}/currentApp`).set(appId);
+  ref.child(`users/${owner}/apps`).update([appId]);
+
+  init(appName, owner, appId).then(() => {
+    console.log('Instance created!');
+  });
+});
+ref.child('apps').once('value', () => {
+  deployed = true;
 });
