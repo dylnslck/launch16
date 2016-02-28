@@ -4,6 +4,7 @@
   .navbar {
     border-bottom: 1px solid $border;
     border-radius: 0;
+    background: white;
 
     .navbar-app {
       .btn {
@@ -30,10 +31,15 @@
         background: $bg;
         border-bottom: 1px solid $border;
       }
+
+      .schemas-viewport {
+
+      }
     }
 
     .logs {
       height: 100%;
+      background: white;
 
       .logs-search {
 

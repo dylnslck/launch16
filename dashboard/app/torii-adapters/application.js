@@ -65,8 +65,8 @@ export default Ember.Object.extend({
    */
   _findOrCreateUser(authData) {
     const store = this.get('store');
-  
-    return store.find('user', authData.uid)
+
+    return store.findRecord('user', authData.uid)
       .catch(() => {
         let newUser = store.createRecord('user', this.extractUserProperties(authData));
 

@@ -3,9 +3,11 @@ const computed = Ember.computed;
 
 export default Ember.Component.extend({
   commands: [
-    'restle login',
-    'restle init super-dope-app',
-    'restle schemas add user attributes name:string',
+    'restle-launch login',
+    'restle-launch init launch-2016',
+    'cd launch-2016',
+    'restle-launch schemas add user attributes name:string',
+    'restle-launch open',
   ],
 
   inputs: computed('commands', function inputs() {

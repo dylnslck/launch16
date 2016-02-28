@@ -1,25 +1,11 @@
-<div class="col-xs-12 col-sm-9 col-md-8 col-lg-8 schemas">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 schemas">
   <div class="row">
-    <div class="schemas-controls p-a-1">
-      <button type="button" name="button" class="btn btn-green">
-        Add a schema
-      </button>
-      <button type="button" name="button" class="btn btn-red">
-        Deploy
-      </button>
-    </div>
     <div class="schemas-viewport p-a-1">
-      schemas content
-    </div>
-  </div>
-</div>
-<div class="col-xs-12 col-sm-3 col-md-4 col-lg-4 logs">
-  <div class="row">
-    <div class="logs-search p-a-1">
-      {{input type="text" class="form-control" style="font-family:FontAwesome;" placeholder="Search your logs"}}
-    </div>
-    <div class="logs-viewport p-a-1">
-      logs
+      <div class="row">
+        {{#each model as |schema|}}
+          {{schema-card schema=schema}}
+        {{/each}}
+      </div>
     </div>
   </div>
 </div>

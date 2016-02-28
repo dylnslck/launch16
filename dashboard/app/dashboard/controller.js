@@ -23,5 +23,9 @@ export default Ember.Controller.extend({
         console.log('err:', err);
       });
     },
+
+    selectApp(app) {
+      this.get('session.currentUser').set('currentApp', app);
+    },
   },
 });
