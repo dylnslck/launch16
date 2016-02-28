@@ -27,7 +27,6 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
     if (err) return reject(err);
 
     const instanceId = data.Instances[0].InstanceId;
-    console.log(data.Instances[0]);
 
     params = {
       Resources: [instanceId],
