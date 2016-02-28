@@ -57,7 +57,11 @@ ref.child('apps').on('child_added', snapshot => {
   const owner = val.owner;
 
   ref.child(`users/${owner}/currentApp`).set(appId);
-  ref.child(`users/${owner}/apps`).update([appId]);
+  ref.child(`users/${owner}/apps`).once('value', s => {
+    const curr = s.exists() ? Array.prototype.slice.call(s.val()) : [];
+    curr.push(snapshot.key());
+    s.ref().set(curr);
+  });
 
   init(appName, owner, appId).then(() => {
     console.log('Instance created!');
