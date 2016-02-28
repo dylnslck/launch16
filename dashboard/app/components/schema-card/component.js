@@ -5,8 +5,8 @@ export default Ember.Component.extend({
 
   url: Ember.computed('schema', function() {
     const id = `${this.get('schema.id')}s`;
-    const ip = this.get('currentUser.currentApp.ip');
+    const ip = this.get('session.currentUser.currentApp.ip');
 
-    return `${ip}/${id}`;
+    return `http://${ip}/${id}`;
   }),
 });
