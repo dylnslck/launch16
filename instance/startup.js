@@ -19,6 +19,7 @@ const build = image => {
 
 let child;
 let appRef;
+let pid;
 
 rp({ json: true, uri: metaDataUrl }).then(content => {
   const instanceId = content.instanceId;
@@ -39,23 +40,36 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
   process.env.APP_ID = appId;
   process.env.PORT = 8000;
 }).then(() => {
+  let appName = '';
+
+  appRef.on('value', snapshot => {
+    appName = snapshot.val().name;
+    console.log('appName:', appName);
+  });
+
   // when the app image changes, reinstantiate the restle app
   appRef.child('image').on('value', snapshot => {
-    appRef.child('isDeploying').set(false);
+    appRef.child('isDeploying').set(true);
+    console.log('isDeploying:', true);
 
     build(snapshot.val());
 
     // if the instance is already running, restart it
-    if (child && child.connected) {
-      child.disconnect();
+    if (child !== undefined) {
+      console.log('Time to disconnect child!');
+      child.kill('SIGKILL');
     }
 
-    proc.execSync('cd ~/launch16/instance/dist/app && npm install');
+    console.log('about to spawn node to monitor:', appName);
+    proc.execSync(`cd ~/launch16/instance/dist/${appName} && npm install`);
     child = proc.spawn('node', [path.resolve(__dirname, `dist/${appName}`, 'index.js')]);
+    pid = child.pid;
 
-    appRef.child('isDeploying').set(true);
+    console.log('pid:', pid);
+
+    console.log('isDeploying:', false);
+    appRef.child('isDeploying').set(false);
     child.stdout.on('data', data => process.stdout.write(data));
     child.stderr.on('data', data => process.stderr.write(data));
   });
-
 });
