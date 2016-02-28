@@ -36,16 +36,18 @@
   </div>
   {{else}}
   <div class="dashboard-new row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-      <h1 class="text-xs-center m-y-3">Create your first API</h1>
-      <form {{action "createApp" on="submit"}}>
-        <div class="form-group">
-          {{input type="text" value=appName placeholder="Awesome API 2000" class="form-control"}}
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-10 col-lg-offset-1">
+      <h1 class="text-xs-center m-y-3">Create an API with the CLI</h1>
+      <div class="terminal col-xs-12 col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+        <div class="row terminal-header">
+          <div class="circle circle-red"></div>
+          <div class="circle circle-yellow"></div>
+          <div class="circle circle-green"></div>
         </div>
-        <button type="submit" name="button" class="btn btn-red btn-block">
-          Create some awesomness
-        </button>
-      </form>
+        <div class="row">
+          {{terminal-viewport}}
+        </div>
+      </div>
     </div>
   </div>
   {{/if}}
