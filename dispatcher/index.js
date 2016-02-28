@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 app.listen(process.env.PORT);
 
-const RESTLE_IMAGE = 'ami-7e122d14'; // restle-9
+const RESTLE_IMAGE = 'ami-0a0a3560'; // restle-9
 const RESTLE_EC2 = 't2.micro';
 
 AWS.config.region = 'us-east-1';
@@ -27,7 +27,6 @@ const init = (appName, userId, appId) => new Promise((resolve, reject) => {
     if (err) return reject(err);
 
     const instanceId = data.Instances[0].InstanceId;
-    console.log(data.Instances[0]);
 
     params = {
       Resources: [instanceId],
