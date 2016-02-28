@@ -37,20 +37,14 @@ rp({ json: true, uri: metaDataUrl }).then(content => {
 }).then(() => {
   const appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${process.env.APP_ID}`);
 
-  // if image changes value
-  // if image exists, reinstantiate restle
-
   // when the app image changes, reinstantiate the restle app
   appRef.child('image').on('value', snapshot => {
-    appRef.child('isDeploying').set(true);
-
     if (snapshot.exists()) {
       // build `dist`
       build(snapshot.val());
 
       // if the instance is already running, restart it
       if (child !== undefined) {
-        console.log('Time to disconnect child!');
         child.kill('SIGKILL');
       }
 
