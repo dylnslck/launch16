@@ -25,7 +25,7 @@ appRef.child('image').on('value', snapshot => {
     child.disconnect();
   }
 
-  proc.execSync('cd dist/app && npm install');
+  proc.execSync('cd ~/launch16/instance/dist/app && npm install');
   child = proc.spawn('node', [path.resolve(__dirname, 'dist/app', 'index.js')]);
 
   child.stdout.on('data', data => process.stdout.write(data));
