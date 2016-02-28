@@ -7,7 +7,6 @@ const path = require('path');
 const proc = require('child_process');
 
 const metaDataUrl = 'http://169.254.169.254/latest/dynamic/instance-identity/document';
-const region = 'us-east-1';
 
 const build = image => {
   Object.keys(image).forEach(key => {
@@ -20,18 +19,19 @@ const build = image => {
 let child;
 let appRef;
 
-rp(metaDataUrl).then(content => {
+rp({ json: true, uri: metaDataUrl }).then(content => {
   const instanceId = content.instanceId;
-  console.log('isntanceId:', instanceId);
-  const appId = proc.execSync(`aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=AppId" --region=us-east-1 --output=text | cut -f5`, { encoding: 'utf-8' });
-  console.log('appId:', appId);
-  const userId = proc.execSync(`aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=UserId" --region=us-east-1 --output=text | cut -f5`, { encoding: 'utf-8' });
+  const getApp = `aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=AppId" --region=us-east-1 --output=text | cut -f5`;
+  const getUser = `aws ec2 describe-tags --filters "Name=resource-id,Values=${instanceId}" "Name=key,Values=UserId" --region=us-east-1 --output=text | cut -f5`;
+  const appId = proc.execSync(getApp, { encoding: 'utf-8' });
+  const userId = proc.execSync(getUser, { encoding: 'utf-8' });
 
   appRef = new Firebase(`https://restle-launch2016.firebaseio.com/apps/${appId}`);
 
+  process.env.USER_ID = userId;
+  process.env.APP_ID = appId;
   process.env.PORT = 8000;
-  return content;
-}).then(content => {
+}).then(() => {
   // when the app image changes, reinstantiate the restle app
   appRef.child('image').on('value', snapshot => {
     build(snapshot.val());
