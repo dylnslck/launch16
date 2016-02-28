@@ -58,7 +58,7 @@ ref.child('apps').on('child_added', snapshot => {
 
   ref.child(`users/${owner}/currentApp`).set(appId);
   ref.child(`users/${owner}/apps`).once('value', s => {
-    s.ref().set({ [snapshot.key()]: true });
+    s.ref().update({ [snapshot.key()]: true });
   });
 
   init(appName, owner, appId).then(() => {
